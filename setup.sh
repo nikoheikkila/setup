@@ -45,7 +45,7 @@ if ! command -v brew > /dev/null; then
 	elif on_wsl; then
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" < /dev/null
 
-		[[ -d $HOME/.linuxbrew ]] && eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+		[[ -d $HOME/.linuxbrew ]] && eval '$($HOME/.linuxbrew/bin/brew shellenv)'
 		[[ -d /home/linuxbrew/.linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 		[[ -r $HOME/.bash_profile ]] && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> "$HOME/.bash_profile"
 
