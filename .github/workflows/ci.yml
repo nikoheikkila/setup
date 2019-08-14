@@ -12,4 +12,4 @@ jobs:
     - name: Install ShellCheck
       run: sudo apt-get install shellcheck
     - name: Lint script files
-      run: shellcheck -a -x *.sh
+      run: shellcheck -x *.sh
