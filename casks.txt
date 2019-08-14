@@ -1,0 +1,12 @@
+hyper
+docker
+todoist
+vlc
+1password
+alfred
+karabiner-elements
+bear
+spectacle
+telegram
+visual-studio-code
+caffeine

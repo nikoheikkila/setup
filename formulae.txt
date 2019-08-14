@@ -1,0 +1,16 @@
+bat
+curl
+exa
+fd
+fish
+fx
+fzf
+git
+grc
+httpie
+jq
+ncdu
+ripgrep
+tldr
+wget
+yq
