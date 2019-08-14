@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Install ShellCheck
+      run: apt-get install shellcheck
+    - name: Lint script files
+      run: shellcheck -a -x *.sh
+     
