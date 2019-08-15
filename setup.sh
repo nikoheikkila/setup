@@ -56,12 +56,11 @@ if ! command -v brew > /dev/null; then
 
 fi
 
-# Upgrade to the latest Homebrew just in case
-brew update
-brew upgrade
-
 ohai "Installing Homebrew formulae..."
 while read -r package; do brew install "$package"; done < formulae.txt
+
+# These are only available on macOS
+on_mac && brew install reattach-to-user-namespace
 
 ohai "Setting login shell to Fish"
 chsh -s "$(command -v fish)"
@@ -83,6 +82,8 @@ fi
 ohai "Configuring tmux"
 [[ -d "$HOME/.tmux" ]] && rm -rf "$HOME/.tmux/"
 git clone https://github.com/nikoheikkila/.tmux "$HOME/.tmux"
+cp "$HOME/.tmux/.tmux.conf" "$HOME/"
+cp "$HOME/.tmux/.tmux.conf.local" "$HOME/"
 
 # Perform post-install steps for macOS
 on_mac && source mac_defaults.sh

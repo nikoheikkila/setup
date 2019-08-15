@@ -12,7 +12,6 @@ fzf
 git
 git-extras
 gnupg
-gpg-agent
 gpgme
 grc
 htop
@@ -22,18 +21,15 @@ mkcert
 mosh
 ncdu
 neovim
-nmap
 nss
 optipng
 pandoc
 pandoc-citeproc
 prettyping
-reattach-to-user-namespace
 ripgrep
 rsync
 shellcheck
 speedtest-cli
-starship
 tldr
 tmux
 tree
