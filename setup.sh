@@ -27,8 +27,6 @@ function on_wsl() {
 	[[ $(uname -a | grep -c "Microsoft") -eq 1 ]]
 }
 
-# Start
-
 ohai "New Development Box Setup Script"
 ohai "By Niko Heikkilä"
 ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
@@ -37,6 +35,10 @@ ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_EMOJI=1
 
+# Preliminary checks
+[[ -d "$HOME/.config" ]] || mkdir -p "$HOME/.config"
+
+# Install Homebrew or Linuxbrew
 if ! command -v brew > /dev/null; then
 	ohai "Installing Homebrew..."
 
@@ -54,34 +56,28 @@ if ! command -v brew > /dev/null; then
 
 fi
 
-# Latest brew, install brew cask on macOS
-brew upgrade
+# Upgrade to the latest Homebrew just in case
 brew update
-brew tap caskroom/cask
+brew upgrade
 
-ohai "Installing regular Homebrew formulae..."
+ohai "Installing Homebrew formulae..."
+while read -r package; do brew install "$package"; done < formulae.txt
 
-while read -r package; do
-	brew install "$package"
-done < formulae.txt
-
-if on_mac; then
-	ohai "Installing Homebrew Casks..."
-	while read -r cask; do
-		brew install "$cask"
-	done < casks.txt
-fi
-
-if [[ $(grep "$(whoami)" /etc/passwd | grep -c fish) -eq 0 ]]; then
-	ohai "Setting login shell to Fish"
-	chsh -s "$(command -v fish)"
-fi
+ohai "Setting login shell to Fish"
+chsh -s "$(command -v fish)"
 
 if [[ ! -d "$HOME/.local/share/omf" ]]; then
 	ohai "Installing Oh-My-Fish framework..."
 	curl -sSL https://get.oh-my.fish > install
     fish install --path="$HOME/.local/share/omf" --config="$HOME/.config/omf"
     rm -f install
+fi
+
+ohai "Configuring Starship prompt"
+cp starship.toml "$HOME/.config/"
+
+if [[ $(grep -c "eval (starship init fish)" "$HOME/.config/fish/config.fish") -eq 0 ]]; then
+    echo "eval (starship init fish)" >> "$HOME/.config/fish/config.fish"
 fi
 
 # Perform post-install steps for macOS

@@ -1,0 +1,17 @@
+# Configuration file for the Starship prompt
+# See: https://starship.rs/config/
+
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Configure battery symbols
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
+
+# Replace the "➜" symbol in the prompt with "❯"
+[character]
+symbol = "❯"
+error_symbol = "✗"
+use_symbol_for_status = true
