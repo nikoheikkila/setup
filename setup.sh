@@ -80,6 +80,10 @@ if [[ $(grep -c "eval (starship init fish)" "$HOME/.config/fish/config.fish") -e
     echo "eval (starship init fish)" >> "$HOME/.config/fish/config.fish"
 fi
 
+ohai "Configuring tmux"
+[[ -d "$HOME/.tmux" ]] && rm -rf "$HOME/.tmux/"
+git clone https://github.com/nikoheikkila/.tmux "$HOME/.tmux"
+
 # Perform post-install steps for macOS
 on_mac && source mac_defaults.sh
 
