@@ -1,6 +1,8 @@
 name: CI
 
-on: [push]
+on:
+  - push
+  - pull_request
 
 jobs:
   build:
@@ -9,7 +11,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Install ShellCheck
-      run: sudo apt-get install shellcheck
     - name: Lint script files
       run: shellcheck -x *.sh
