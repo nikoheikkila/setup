@@ -12,3 +12,21 @@ As usual with scripts like these, this probably won't work for you but feel free
 ## Usage
 
 Entrypoint is `./setup.sh`. Execute it and let it roll!
+
+## Other Apps
+
+Not all applications are bundled here for cross-compatibility reasons. I install the following apps by hand.
+
+- [ ] 1Password
+- [ ] Backblaze
+- [ ] Docker Desktop
+- [ ] Dropbox
+- [ ] Fork
+- [ ] Grammarly
+- [ ] Microsoft Edge
+- [ ] Mozilla Firefox
+- [ ] Notion
+- [ ] Simple Diagrams 4
+- [ ] Telegram Desktop
+- [ ] Todoist
+- [ ] Visual Studio Code Insiders

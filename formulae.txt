@@ -12,6 +12,7 @@ fzf
 git
 git-extras
 gnupg
+go
 gpgme
 grc
 htop
@@ -21,11 +22,14 @@ mkcert
 mosh
 ncdu
 neovim
+node
 nss
 optipng
 pandoc
 pandoc-citeproc
+php
 prettyping
+python
 ripgrep
 rsync
 shellcheck
@@ -36,5 +40,6 @@ tree
 wget
 xsv
 xz
+yarn
 yq
 z
