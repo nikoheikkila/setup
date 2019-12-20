@@ -33,6 +33,16 @@ function brew_install() {
 	fi
 }
 
+function change_shell() {
+	local shell="${1}"
+
+	if [[ -n "${NO_INTERACTIVE}" ]]; then
+		echo "Setting login shell to ${shell}"
+	else
+		chsh -s "${shell}"
+	fi
+}
+
 ohai "New Development Box Setup Script"
 ohai "By Niko Heikkilä"
 ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
@@ -70,8 +80,7 @@ while read -r package; do brew_install "$package" || true; done < formulae.txt
 # These are only available on macOS
 on_mac && brew_install reattach-to-user-namespace
 
-ohai "Setting login shell to Fish"
-chsh -s "$(command -v fish)"
+change_shell "$(command -v fish)"
 
 if [[ ! -d "$HOME/.local/share/omf" ]]; then
 	ohai "Installing Oh-My-Fish framework..."

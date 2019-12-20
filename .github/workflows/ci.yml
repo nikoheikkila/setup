@@ -15,9 +15,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Lint Script ${{ matrix.os }}
+    - name: Lint Script
+      if: matrix.os == 'ubuntu-latest'
       uses: ludeeus/action-shellcheck@0.1.0
     - name: Run Script
       run: bash setup.sh
       env:
         NO_INSTALL: true
+        NO_INTERACTIVE: true
