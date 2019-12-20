@@ -23,10 +23,6 @@ function on_mac() {
 	[[ $(uname -a | grep -ci "Darwin") -eq 1 ]]
 }
 
-function on_wsl() {
-	[[ $(uname -a | grep -ci "Microsoft") -eq 1 ]]
-}
-
 ohai "New Development Box Setup Script"
 ohai "By Niko Heikkilä"
 ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
@@ -45,7 +41,7 @@ if ! command -v brew > /dev/null; then
 
 	if on_mac; then
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
-	elif on_wsl; then
+	else
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" < /dev/null
 
 		[[ -d $HOME/.linuxbrew ]] && eval '$($HOME/.linuxbrew/bin/brew shellenv)'
