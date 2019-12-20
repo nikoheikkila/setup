@@ -10,8 +10,11 @@ full_symbol = "🔋"
 charging_symbol = "⚡️"
 discharging_symbol = "💀"
 
-# Replace the "➜" symbol in the prompt with "❯"
 [character]
-symbol = "❯"
-error_symbol = "✗"
 use_symbol_for_status = true
+
+[git_commit]
+disabled = false
+
+[python]
+pyenv_version_name = true
