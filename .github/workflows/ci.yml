@@ -1,17 +1,20 @@
-name: Build and Test
+name: Main Workflow
 
 on:
   - push
   - pull_request
 
 jobs:
-  build:
-
-    runs-on: [ubuntu-latest, macos-latest]
-
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    
     steps:
     - uses: actions/checkout@master
-    - name: Lint Script
+    - name: Lint Script ${{ matrix.os }}
       run: shellcheck -x *.sh
     - name: Run Script
       run: bash setup.sh
