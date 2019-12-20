@@ -23,6 +23,16 @@ function on_mac() {
 	[[ $(uname -a | grep -ci "Darwin") -eq 1 ]]
 }
 
+function brew_install() {
+	local package="${1}"
+
+	if [[ -n "${NO_INSTALL}" ]]; then
+		echo "Installing ${package}..."
+	else
+		brew install "${package}"
+	fi
+}
+
 ohai "New Development Box Setup Script"
 ohai "By Niko Heikkilä"
 ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
@@ -55,10 +65,10 @@ if ! command -v brew > /dev/null; then
 fi
 
 ohai "Installing Homebrew formulae..."
-while read -r package; do brew install "$package" || true; done < formulae.txt
+while read -r package; do brew_install "$package" || true; done < formulae.txt
 
 # These are only available on macOS
-on_mac && brew install reattach-to-user-namespace
+on_mac && brew_install reattach-to-user-namespace
 
 ohai "Setting login shell to Fish"
 chsh -s "$(command -v fish)"
