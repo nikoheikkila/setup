@@ -1,4 +1,4 @@
-name: CI
+name: Build and Test
 
 on:
   - push
@@ -7,9 +7,11 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@master
-    - name: Lint script files
+    - name: Lint Script
       run: shellcheck -x *.sh
+    - name: Run Script
+      run: bash setup.sh
