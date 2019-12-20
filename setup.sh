@@ -20,11 +20,11 @@ function ohai() {
 }
 
 function on_mac() {
-	[[ $(uname -a | grep -c "Darwin") -eq 1 ]]
+	[[ $(uname -a | grep -ci "Darwin") -eq 1 ]]
 }
 
 function on_wsl() {
-	[[ $(uname -a | grep -c "Microsoft") -eq 1 ]]
+	[[ $(uname -a | grep -ci "Microsoft") -eq 1 ]]
 }
 
 ohai "New Development Box Setup Script"
@@ -34,6 +34,7 @@ ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
 # Export necessary variables
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_EMOJI=1
+export HOMEBREW_MAKE_JOBS=4
 
 # Preliminary checks
 [[ -d "$HOME/.config" ]] || mkdir -p "$HOME/.config"
@@ -54,10 +55,11 @@ if ! command -v brew > /dev/null; then
 		echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> "$HOME/.profile"
 	fi
 
+	ohai "Installed $(brew --version 2>&1 | head -n 1)"
 fi
 
 ohai "Installing Homebrew formulae..."
-while read -r package; do brew install "$package"; done < formulae.txt
+while read -r package; do brew install "$package" || true; done < formulae.txt
 
 # These are only available on macOS
 on_mac && brew install reattach-to-user-namespace
@@ -70,6 +72,7 @@ if [[ ! -d "$HOME/.local/share/omf" ]]; then
 	curl -sSL https://get.oh-my.fish > install
     fish install --path="$HOME/.local/share/omf" --config="$HOME/.config/omf"
     rm -f install
+	ohai "Installed $(omf --version)"
 fi
 
 ohai "Configuring Starship prompt"
