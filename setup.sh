@@ -43,6 +43,13 @@ function change_shell() {
 	fi
 }
 
+function link() {
+	local source="${1}"
+	local target="${2}"
+
+	ln -sf "$(readlink -f "${source}")" "${target}"
+}
+
 ohai "New Development Box Setup Script"
 ohai "By Niko Heikkilä"
 ohai "Follow me on Mastodon: https://mastodon.technology/@nikoheikkila"
@@ -77,8 +84,9 @@ fi
 ohai "Installing Homebrew formulae..."
 while read -r package; do brew_install "$package" || true; done < formulae.txt
 
-# These are only available on macOS
-on_mac && brew_install reattach-to-user-namespace
+ohai "Setting up Git..."
+link dotfiles/.gitignore "$HOME/.gitignore"
+link dotfiles/.gitconfig "$HOME/.gitconfig"
 
 change_shell "$(command -v fish)"
 
@@ -90,18 +98,18 @@ if [[ ! -d "$HOME/.local/share/omf" ]]; then
 	ohai "Installed $(omf --version)"
 fi
 
-ohai "Configuring Starship prompt"
-cp starship.toml "$HOME/.config/"
+ohai "Configuring Starship prompt..."
+link config/starship.toml "$HOME/.config/starship.toml"
 
 if [[ $(grep -c "eval (starship init fish)" "$HOME/.config/fish/config.fish") -eq 0 ]]; then
     echo "eval (starship init fish)" >> "$HOME/.config/fish/config.fish"
 fi
 
-ohai "Configuring tmux"
+ohai "Configuring tmux..."
 [[ -d "$HOME/.tmux" ]] && rm -rf "$HOME/.tmux/"
 git clone https://github.com/nikoheikkila/.tmux "$HOME/.tmux"
-cp "$HOME/.tmux/.tmux.conf" "$HOME/"
-cp "$HOME/.tmux/.tmux.conf.local" "$HOME/"
+link "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
+link "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 
 # Perform post-install steps for macOS
 on_mac && source mac_defaults.sh

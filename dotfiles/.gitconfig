@@ -1,0 +1,90 @@
+[core]
+    editor  = code --wait
+    pager   = less -x4
+    ignorecase = false
+    excludesfile = ~/.gitignore
+    preloadindex = true
+    fscache = true
+	autocrlf = input
+	filemode = false
+[gc]
+    auto = 256
+[gpg]
+    program = gpg
+[filter "lfs"]
+    required   = true
+    clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[user]
+    name   = Niko Heikkilä
+	email = yo@nikoheikkila.fi
+    useconfigonly = true
+	signingkey = ""
+[color]
+    branch  = auto
+    diff    = auto
+    status  = auto
+    ui      = always
+[color "branch"]
+    current = red reverse
+    local   = blue
+    remote  = green
+[color "diff"]
+    meta    = yellow
+    frag    = magenta
+    old     = red bold
+    new     = green
+    plain   = white
+[color "status"]
+    added       = yellow
+    changed     = green
+    untracked   = cyan
+[push]
+    default = current
+[pull]
+    rebase = true
+    default = current
+[diff]
+    tool = default-difftool
+    mnemonicprefix = true
+[difftool "default-difftool"]
+    cmd = code --diff $LOCAL $REMOTE
+    prompt = false
+[branch]
+    autosetuprebase = always
+[apply]
+    whitespace = nowarn
+[rerere]
+    enabled = false
+[rebase]
+    autosquash = true
+[alias]
+    amend = commit --amend --no-edit
+    br = branch -ra
+    c = commit -v
+    cl = clone
+    cm = commit -m
+    ca = commit -am
+    co = checkout
+    cob = checkout -b
+    cp = cherry-pick
+    diff = diff --word-diff
+    edit = config --global -e
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
+    loc = diff --shortstat "@{0 day ago}"
+    ff = merge --ff-only
+    pf = push --force-with-lease
+    pt = push --tags
+    rem = remote -v
+    rom = rebase -i origin/master
+    rum = rebase -i upstream/master
+    s = status -s
+    sb = show-branch
+    smi = submodule init --recursive --remote
+    smu = submodule update
+    t = !sh -c 'git tag -a "$1" -m "Version $1"'
+    stats = shortlog -s -n --all --no-merges
+    bclean = !git branch --merged | grep -vE 'master' | xargs git branch -d
+[commit]
+    gpgsign = false
