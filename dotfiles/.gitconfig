@@ -1,6 +1,5 @@
 [core]
-    editor  = code --wait
-    pager   = less -x4
+    editor  = code-insiders --wait
     ignorecase = false
     excludesfile = ~/.gitignore
     preloadindex = true
@@ -40,8 +39,12 @@
     added       = yellow
     changed     = green
     untracked   = cyan
+[pager]
+    diff = diff-so-fancy | bat
+	show = diff-so-fancy | bat
 [push]
     default = current
+    followTags = true
 [pull]
     rebase = true
     default = current
@@ -88,3 +91,5 @@
     bclean = !git branch --merged | grep -vE 'master' | xargs git branch -d
 [commit]
     gpgsign = false
+[http]
+	sslVerify = true
