@@ -23,16 +23,6 @@ function on_mac() {
 	[[ $(uname -a | grep -ci "Darwin") -eq 1 ]]
 }
 
-function brew_install() {
-	local package="${1}"
-
-	if [[ -n "${NO_INSTALL}" ]]; then
-		echo "Installing ${package}..."
-	else
-		brew install "${package}"
-	fi
-}
-
 function change_shell() {
 	local shell="${1}"
 
@@ -81,8 +71,8 @@ if ! command -v brew > /dev/null; then
 	ohai "Installed $(brew --version 2>&1 | head -n 1)"
 fi
 
-ohai "Installing Homebrew formulae..."
-while read -r package; do brew_install "$package" || true; done < formulae.txt
+ohai "Checking that required Homebrew formulae are installed..."
+brew bundle
 
 ohai "Setting up Git..."
 link dotfiles/.gitignore "$HOME/.gitignore"
