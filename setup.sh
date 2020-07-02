@@ -33,11 +33,14 @@ function change_shell() {
 	fi
 }
 
-function link() {
-	local source="${1}"
+function copy() {
+    local source="${1}"
 	local target="${2}"
 
-	ln -sf "$(readlink -f "${source}")" "${target}"
+    # Prompt before overwriting a file
+    set +e
+    command cp -iv "${source}" "${target}"
+    set -e
 }
 
 ohai "New Development Box Setup Script"
@@ -75,8 +78,8 @@ ohai "Checking that required Homebrew formulae are installed..."
 brew bundle
 
 ohai "Setting up Git..."
-link dotfiles/.gitignore "$HOME/.gitignore"
-link dotfiles/.gitconfig "$HOME/.gitconfig"
+copy dotfiles/.gitignore "$HOME/.gitignore"
+copy dotfiles/.gitconfig "$HOME/.gitconfig"
 
 change_shell "$(command -v fish)"
 
@@ -89,7 +92,7 @@ if [[ ! -d "$HOME/.local/share/omf" ]]; then
 fi
 
 ohai "Configuring Starship prompt..."
-link config/starship.toml "$HOME/.config/starship.toml"
+copy config/starship.toml "$HOME/.config/starship.toml"
 
 if [[ $(grep -c "eval (starship init fish)" "$HOME/.config/fish/config.fish") -eq 0 ]]; then
     echo "eval (starship init fish)" >> "$HOME/.config/fish/config.fish"
@@ -98,8 +101,8 @@ fi
 ohai "Configuring tmux..."
 [[ -d "$HOME/.tmux" ]] && rm -rf "$HOME/.tmux/"
 git clone https://github.com/nikoheikkila/.tmux "$HOME/.tmux"
-link "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
-link "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+copy "$HOME/.tmux/.tmux.conf" "$HOME/.tmux.conf"
+copy "$HOME/.tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 
 # Perform post-install steps for macOS
 on_mac && source mac_defaults.sh
