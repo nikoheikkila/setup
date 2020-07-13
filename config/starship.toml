@@ -13,6 +13,9 @@ discharging_symbol = "💀"
 [character]
 use_symbol_for_status = true
 
+[git_branch]
+symbol = "🌿 "
+
 [git_commit]
 disabled = false
 
