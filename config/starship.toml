@@ -21,3 +21,6 @@ disabled = false
 
 [python]
 pyenv_version_name = true
+
+[conda]
+symbol = "🐍 "
