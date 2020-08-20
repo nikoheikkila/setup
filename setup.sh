@@ -60,9 +60,9 @@ if ! command -v brew > /dev/null; then
 	ohai "Installing Homebrew..."
 
 	if on_mac; then
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	else
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)" < /dev/null
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 		[[ -d $HOME/.linuxbrew ]] && eval '$($HOME/.linuxbrew/bin/brew shellenv)'
 		[[ -d /home/linuxbrew/.linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -75,7 +75,7 @@ if ! command -v brew > /dev/null; then
 fi
 
 ohai "Checking that required Homebrew formulae are installed..."
-brew bundle
+brew bundle || true
 
 ohai "Setting up Git..."
 copy dotfiles/.gitignore "$HOME/.gitignore"
