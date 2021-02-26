@@ -17,7 +17,7 @@
 	process = git-lfs filter-process
 [user]
     name   = Niko Heikkilä
-	email = yo@nikoheikkila.fi
+	email = niko.heikkila@futurice.com
     useconfigonly = true
 	signingkey = ""
 [color]
@@ -88,8 +88,15 @@
     smu = submodule update
     t = !sh -c 'git tag -a "$1" -m "Version $1"'
     stats = shortlog -s -n --all --no-merges
-    bclean = !git branch --merged | grep -vE 'master' | xargs git branch -d
+    bclean = !git branch --merged | grep -vE '(main|master)' | xargs git branch -D
 [commit]
     gpgsign = false
 [http]
 	sslVerify = true
+[init]
+	defaultBranch = main
+[mergetool "smerge"]
+	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
+[merge]
+	tool = smerge
