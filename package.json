@@ -1,0 +1,11 @@
+{
+    "name": "setup",
+    "private": true,
+    "license": "MIT",
+    "scripts": {
+        "postinstall": "zx setup.mjs"
+    },
+    "dependencies": {
+        "zx": "^6.0.7"
+    }
+}

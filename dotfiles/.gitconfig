@@ -1,5 +1,5 @@
 [core]
-    editor  = code-insiders --wait
+    editor = nvim
     ignorecase = false
     excludesfile = ~/.gitignore
     preloadindex = true
@@ -19,7 +19,7 @@
     name   = Niko Heikkilä
 	email = niko.heikkila@futurice.com
     useconfigonly = true
-	signingkey = ""
+	signingkey = 9F93513C573ACF90
 [color]
     branch  = auto
     diff    = auto
@@ -86,6 +86,7 @@
     sb = show-branch
     smi = submodule init --recursive --remote
     smu = submodule update
+    sync = pull --rebase && push
     t = !sh -c 'git tag -a "$1" -m "Version $1"'
     stats = shortlog -s -n --all --no-merges
     bclean = !git branch --merged | grep -vE '(main|master)' | xargs git branch -D
