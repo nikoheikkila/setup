@@ -2,6 +2,12 @@ import { fs, os, path, which } from "zx";
 import * as Log from "./log.mjs";
 
 /**
+ * Checks whether current environment is a CI pipeline
+ * @returns {boolean}
+ */
+export const isPipeline = () => !!process.env.CI;
+
+/**
  * Build path to $HOME with optional components
  * @param {string} components
  * @returns string
@@ -35,6 +41,10 @@ export const isInstalled = (program) => which.sync(program) !== null;
  * @returns {Promise<void>}
  */
 export const changeShell = async () => {
+	if (isPipeline()) {
+		return Log.info("Not changing the login shell as this is a CI pipeline.");
+	}
+
 	const shell = "/usr/local/bin/fish";
 	const currentShell = process.env.SHELL ?? "/bin/sh";
 
