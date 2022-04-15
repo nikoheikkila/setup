@@ -1,4 +1,4 @@
-import { fs, os, path, which } from "zx";
+import { fetch, fs, os, path, which } from "zx";
 import * as Log from "./log.mjs";
 
 /**
@@ -22,6 +22,14 @@ export const home = (components = "") =>
  */
 export const root = (components = "") =>
 	path.resolve(__dirname, ...(components.split(path.sep)));
+
+/**
+ * Build path from the opereating system temporary directory with optional components
+ * @param {string} components
+ * @returns string
+ */
+export const temporary = (components = "") =>
+	path.resolve(os.tmpdir(), ...(components.split(path.sep)));
 
 /**
  * Get current operating system name
@@ -64,16 +72,23 @@ export const changeShell = async () => {
 
 /**
  * Installs the Oh-My-Fish framework
+ * On CI pipelines only performs a readiness check
  * @returns {Promise<void>}
  */
 export const installOhMyFish = async () => {
 	Log.info("Installing Oh My Fish...");
 
-	if (fs.pathExistsSync(home(".local/share/omf"))) {
-		return Log.info("Oh My Fish is configured.");
+	const destination = temporary("install.fish");
+	const installURL = "https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install";
+	const installFlags = ["--noninteractive", "--yes"];
+
+	if (isPipeline()) {
+		installFlags.push("--check");
 	}
 
-	await $`curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish`;
+	await download(installURL, destination);
+	await $`fish ${destination} ${installFlags}`;
+	await remove(destination);
 };
 
 /**
@@ -112,6 +127,22 @@ export const copy = async (source, destination) => {
 	await $`cp -a ${source} ${destination}`;
 };
 
+/**
+ * Downloads the contents of given URL to the given destination
+ * @param {string} url
+ * @param {string} destination
+ */
+export const download = async (url, destination) => {
+	const response = await fetch(url);
+
+	if (!response.ok) {
+		throw new Error(`Could not download ${url}`);
+	}
+
+	const textContent = await response.text();
+	await appendTo(destination, textContent);
+};
+
 const getFishShellConfiguration = async () => {
 	const configurationPath = home(".config/fish/config.fish");
 	const configuration = await readFrom(configurationPath);
@@ -120,4 +151,6 @@ const getFishShellConfiguration = async () => {
 };
 
 const readFrom = async (file) => await fs.readFile(file, "utf8");
-const appendTo = async (contents, file) => await fs.appendFile(file, contents);
+const appendTo = async (file, contents) =>
+	await fs.appendFile(file, contents, { encoding: "utf8" });
+const remove = async (file) => await fs.remove(file);
