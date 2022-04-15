@@ -48,7 +48,8 @@ export const isWindows = () => platform() === "win32";
  * @param {string} program
  * @returns boolean
  */
-export const isInstalled = (program) => which.sync(program) !== null;
+export const isInstalled = (program) =>
+	which.sync(program, { nothrow: true }) !== null;
 
 /**
  * Sets the OS to use Fish shell
