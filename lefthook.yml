@@ -1,0 +1,12 @@
+pre-push:
+  commands:
+    packages-audit:
+      tags: security
+      run: yarn audit
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{js,mjs}"
+      run: yarn format
