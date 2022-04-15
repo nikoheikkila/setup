@@ -3,9 +3,13 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "postinstall": "zx setup.mjs"
+        "postinstall": "zx setup.mjs",
+        "format": "rome format ."
     },
     "dependencies": {
         "zx": "^6.0.7"
+    },
+    "devDependencies": {
+        "rome": "^0.4.2-next"
     }
 }
