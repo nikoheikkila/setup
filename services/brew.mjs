@@ -20,7 +20,12 @@ export const install = async () => {
  * @returns {Promise<void>}
  */
 export const bundle = async () => {
-	Log.info("Installing Homebrew packages from Brewfile...");
+	const allInstalled = await $`brew bundle check`.exitCode === 0;
 
+	if (allInstalled) {
+		return;
+	}
+
+	Log.info("Installing Homebrew packages from Brewfile...");
 	await nothrow($`brew bundle`);
 };
