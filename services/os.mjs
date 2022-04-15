@@ -13,7 +13,7 @@ export const isPipeline = () => !!process.env.CI;
  * @returns string
  */
 export const home = (components = "") =>
-	path.resolve(os.homedir(), ...(components.split("/")));
+	path.resolve(os.homedir(), ...(components.split(path.sep)));
 
 /**
  * Build path from the repository root with optional components
@@ -21,13 +21,19 @@ export const home = (components = "") =>
  * @returns string
  */
 export const root = (components = "") =>
-	path.resolve(__dirname, ...(components.split("/")));
+	path.resolve(__dirname, ...(components.split(path.sep)));
 
 /**
  * Get current operating system name
  * @returns string
  */
 export const platform = () => os.platform().toLowerCase();
+
+/**
+ * Determines whether the current operating system is Windows
+ * @returns {boolean}
+ */
+export const isWindows = () => platform() === "win32";
 
 /**
  * Validate whether a given program is installed and located in $PATH
@@ -98,11 +104,13 @@ export const configurePrompt = async () => {
  * @returns {Promise<void>}
  */
 export const copy = async (source, destination) => {
+	if (isWindows()) {
+		source = source.replace(/\//g, "\\");
+		destination = destination.replace(/\//g, "\\");
+	}
+
 	await $`cp -a ${source} ${destination}`;
 };
-
-const readFrom = async (file) => await fs.readFile(file, "utf8");
-const appendTo = async (contents, file) => await fs.appendFile(file, contents);
 
 const getFishShellConfiguration = async () => {
 	const configurationPath = home(".config/fish/config.fish");
@@ -110,3 +118,6 @@ const getFishShellConfiguration = async () => {
 
 	return { configuration, configurationPath };
 };
+
+const readFrom = async (file) => await fs.readFile(file, "utf8");
+const appendTo = async (contents, file) => await fs.appendFile(file, contents);
