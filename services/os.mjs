@@ -93,27 +93,6 @@ export const installOhMyFish = async () => {
 };
 
 /**
- * Configures the terminal prompt with Starship
- * @returns {Promise<void>}
- */
-export const configurePrompt = async () => {
-	if (!isInstalled("starship")) {
-		Log.info("Installing Starship...");
-		await $`curl -sS https://starship.rs/install.sh | sh`;
-	}
-
-	Log.info("Configuring Starship...");
-	const activationCommand = "starship init fish | source";
-	const { configuration, configurationPath } = await getFishShellConfiguration();
-
-	if (!configuration.includes(activationCommand)) {
-		await appendTo(configurationPath, activationCommand);
-	}
-
-	await copy(root("config/starship.toml"), home(".config/starship.toml"));
-};
-
-/**
  * Copies a file from source path to destination path
  * @param {string} source
  * @param {string} destination
@@ -144,7 +123,11 @@ export const download = async (url, destination) => {
 	await appendTo(destination, textContent);
 };
 
-const getFishShellConfiguration = async () => {
+/**
+ * Retrieves the configuration path and its contents for the Fish shell
+ * @returns {Promise<{configuration: string, configurationPath: string}>}
+ */
+export const getFishShellConfiguration = async () => {
 	const configurationPath = home(".config/fish/config.fish");
 	const configurationExists = await exists(configurationPath);
 
@@ -158,8 +141,8 @@ const getFishShellConfiguration = async () => {
 
 const encoding = "utf8";
 
-const readFrom = async (file) => await fs.readFile(file, encoding);
-const exists = async (file) => await fs.pathExists(file);
-const appendTo = async (file, contents) =>
+export const readFrom = async (file) => await fs.readFile(file, encoding);
+export const appendTo = async (file, contents) =>
 	await fs.appendFile(file, contents, { encoding });
-const remove = async (file) => await fs.remove(file);
+export const exists = async (file) => await fs.pathExists(file);
+export const remove = async (file) => await fs.remove(file);

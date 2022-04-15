@@ -3,6 +3,7 @@
 import * as Log from "./services/log.mjs";
 import * as OS from "./services/os.mjs";
 import * as Homebrew from "./services/brew.mjs";
+import * as Prompt from "./services/prompt.mjs";
 import * as Git from "./services/git.mjs";
 import * as APT from "./services/apt.mjs";
 
@@ -29,7 +30,8 @@ async function setupLinux() {
 
 	await OS.changeShell();
 	await OS.installOhMyFish();
-	await OS.configurePrompt();
+
+	await Prompt.configure();
 }
 
 async function setupMacOS() {
@@ -42,7 +44,8 @@ async function setupMacOS() {
 
 	await OS.changeShell();
 	await OS.installOhMyFish();
-	await OS.configurePrompt();
+
+	await Prompt.configure();
 }
 
 switch (os) {
