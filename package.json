@@ -1,7 +1,7 @@
 {
     "name": "setup",
     "private": true,
-    "license": "MIT",
+    "license": "public domain",
     "scripts": {
         "postinstall": "zx setup.mjs",
         "format": "rome format ."
