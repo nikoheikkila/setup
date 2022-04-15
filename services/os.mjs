@@ -145,12 +145,20 @@ export const download = async (url, destination) => {
 
 const getFishShellConfiguration = async () => {
 	const configurationPath = home(".config/fish/config.fish");
-	const configuration = await readFrom(configurationPath);
+	const configurationExists = await exists(configurationPath);
 
+	if (!configurationExists) {
+		return { configuration: "", configurationPath };
+	}
+
+	const configuration = await readFrom(configurationPath);
 	return { configuration, configurationPath };
 };
 
-const readFrom = async (file) => await fs.readFile(file, "utf8");
+const encoding = "utf8";
+
+const readFrom = async (file) => await fs.readFile(file, encoding);
+const exists = async (file) => await fs.pathExists(file);
 const appendTo = async (file, contents) =>
-	await fs.appendFile(file, contents, { encoding: "utf8" });
+	await fs.appendFile(file, contents, { encoding });
 const remove = async (file) => await fs.remove(file);
