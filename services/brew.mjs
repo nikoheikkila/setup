@@ -1,3 +1,4 @@
+import { nothrow } from "zx";
 import * as Log from "./log.mjs";
 import * as OS from "./os.mjs";
 
@@ -21,5 +22,5 @@ export const install = async () => {
 export const bundle = async () => {
 	Log.info("Installing Homebrew packages from Brewfile...");
 
-	await $`brew bundle`;
+	await nothrow($`brew bundle`);
 };
