@@ -2,9 +2,9 @@ name: Test Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   HOMEBREW_NO_INSTALL_UPGRADE: 1
