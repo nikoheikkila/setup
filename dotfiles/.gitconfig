@@ -1,5 +1,5 @@
 [core]
-    editor = nvim
+    editor = hx
     ignorecase = false
     excludesfile = ~/.gitignore
     preloadindex = true
@@ -8,8 +8,6 @@
 	filemode = false
 [gc]
     auto = 256
-[gpg]
-    program = gpg
 [filter "lfs"]
     required   = true
     clean = git-lfs clean -- %f
@@ -19,7 +17,6 @@
     name   = Niko Heikkilä
 	email = niko.heikkila@futurice.com
     useconfigonly = true
-	signingkey = 9F93513C573ACF90
 [color]
     branch  = auto
     diff    = auto
@@ -80,8 +77,8 @@
     pf = push --force-with-lease
     pt = push --tags
     rem = remote -v
-    rom = rebase -i origin/master
-    rum = rebase -i upstream/master
+    rom = rebase -i origin/main
+    rum = rebase -i upstream/main
     s = status -s
     sb = show-branch
     smi = submodule init --recursive --remote
@@ -89,15 +86,10 @@
     sync = pull --rebase && push
     t = !sh -c 'git tag -a "$1" -m "Version $1"'
     stats = shortlog -s -n --all --no-merges
-    bclean = !git branch --merged | grep -vE '(main|master)' | xargs git branch -D
+    bclean = !git branch --merged | grep -v 'main' | xargs git branch -D
 [commit]
     gpgsign = false
 [http]
 	sslVerify = true
 [init]
 	defaultBranch = main
-[mergetool "smerge"]
-	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
-	trustExitCode = true
-[merge]
-	tool = smerge
