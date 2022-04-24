@@ -1,5 +1,5 @@
-import * as OS from "./os.mjs";
 import * as Log from "./log.mjs";
+import * as OS from "./os.mjs";
 
 const buckets = ["extras"];
 
@@ -9,7 +9,7 @@ export async function install() {
 	await installScoop();
 	await addBuckets();
 	await installApps();
-	await updatePackages();
+	await updateApps();
 }
 
 async function installScoop() {
@@ -17,14 +17,14 @@ async function installScoop() {
 		return Log.info("Scoop is already installed");
 	}
 
-	const downloadPath = OS.cwd("install.ps1");
+	const installerPath = OS.temporary("install.ps1");
 	const shimsPath = OS.home("scoop\\shims");
 
 	Log.info("Installing Scoop...");
-	await OS.download("https://get.scoop.sh", downloadPath);
+	await OS.download("https://get.scoop.sh", installerPath);
 	await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
-	await $`${downloadPath} -RunAsAdmin`;
-	await OS.remove(downloadPath);
+	await $`${installerPath} -RunAsAdmin`;
+	await OS.remove(installerPath);
 
 	Log.info(`Adding ${shimsPath} to $PATH`);
 	process.env.PATH = `${shimsPath};${process.env.PATH}`;
@@ -40,6 +40,6 @@ async function installApps() {
 	await $`scoop install ${apps}`;
 }
 
-async function updatePackages() {
+async function updateApps() {
 	await $`scoop update -a`;
 }
