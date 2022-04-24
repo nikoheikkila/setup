@@ -146,14 +146,7 @@ export const download = async (url, destination) => {
  * @returns {Promise<{configuration: string, configurationPath: string}>}
  */
 export const getFishShellConfiguration = async () => {
-	const configurationPath = home(".config/fish/config.fish");
-
-	if (!exists(configurationPath)) {
-		return { configuration: "", configurationPath };
-	}
-
-	const configuration = await readFrom(configurationPath);
-	return { configuration, configurationPath };
+	return await getShellConfiguration(home(".config/fish/config.fish"));
 };
 
 /**
@@ -161,8 +154,10 @@ export const getFishShellConfiguration = async () => {
  * @returns {Promise<{configuration: string, configurationPath: string}>}
  */
 export const getPowerShellConfiguration = async () => {
-	const configurationPath = process.env.PROFILE;
+	return await getShellConfiguration(process.env.PROFILE);
+};
 
+const getShellConfiguration = async (configurationPath) => {
 	if (!exists(configurationPath)) {
 		return { configuration: "", configurationPath };
 	}

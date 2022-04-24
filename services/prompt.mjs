@@ -1,5 +1,7 @@
-import * as OS from "./os.mjs";
 import * as Log from "./log.mjs";
+import * as OS from "./os.mjs";
+
+const STARSHIP_INSTALLER_URL = "https://starship.rs/install.sh";
 
 /**
  * Configures the Fish terminal prompt with Starship
@@ -19,14 +21,8 @@ export const configureFish = async () => {
 
 	const activationCommand = "starship init fish | source";
 
-	if (!configuration.includes(activationCommand)) {
-		await OS.appendTo(configurationPath, activationCommand);
-	}
-
-	await OS.copy(
-		OS.root("config/starship.toml"),
-		OS.home(".config/starship.toml"),
-	);
+	await activateStarship(activationCommand, configuration, configurationPath);
+	await copyStarshipConfiguration();
 };
 
 /**
@@ -46,14 +42,8 @@ export async function configurePowerShell() {
 
 	const activationCommand = "Invoke-Expression (&starship init powershell)";
 
-	if (!configuration.includes(activationCommand)) {
-		await OS.appendTo(configurationPath, activationCommand);
-	}
-
-	await OS.copy(
-		OS.root("config/starship.toml"),
-		OS.home(".config/starship.toml"),
-	);
+	await activateStarship(activationCommand, configuration, configurationPath);
+	await copyStarshipConfiguration();
 }
 
 const installStarship = async () => {
@@ -62,10 +52,22 @@ const installStarship = async () => {
 	}
 
 	const destination = OS.temporary("install.sh");
-	const installURL = "https://starship.rs/install.sh";
 	const installFlags = ["--yes"];
 
-	await OS.download(installURL, destination);
+	await OS.download(STARSHIP_INSTALLER_URL, destination);
 	await $`sh ${destination} ${installFlags}`;
 	await OS.remove(destination);
 };
+
+async function activateStarship(command, configuration, configurationPath) {
+	if (!configuration.includes(command)) {
+		await OS.appendTo(configurationPath, command);
+	}
+}
+
+async function copyStarshipConfiguration() {
+	await OS.copy(
+		OS.root("config/starship.toml"),
+		OS.home(".config/starship.toml"),
+	);
+}
