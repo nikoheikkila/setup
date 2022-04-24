@@ -6,6 +6,8 @@ import * as Homebrew from "./services/brew.mjs";
 import * as Prompt from "./services/prompt.mjs";
 import * as Git from "./services/git.mjs";
 import * as APT from "./services/apt.mjs";
+import * as Scoop from "./services/scoop.mjs";
+import { $ } from "zx";
 
 Log.info(
 	`
@@ -19,6 +21,28 @@ const os = OS.platform();
 
 async function setupWindows() {
 	Log.info("Running setup for Windows...");
+	$.shell = OS.getPath("powershell");
+	$.prefix = "";
+	$.quote =
+		(arg) => {
+			if (/^[a-z0-9/_.-]+$/i.test(arg) || arg === "") {
+				return arg;
+			}
+
+			return arg
+				.replace(/\\/g, "\\\\")
+				.replace(/'/g, "\\\'")
+				.replace(/\f/g, "\\f")
+				.replace(/\n/g, "\\n")
+				.replace(/\r/g, "\\r")
+				.replace(/\t/g, "\\t")
+				.replace(/\v/g, "\\v")
+				.replace(/\0/g, "\\0");
+		};
+
+	await Scoop.install();
+	await Git.configure();
+	await Prompt.configurePowerShell();
 }
 
 async function setupLinux() {
@@ -31,7 +55,7 @@ async function setupLinux() {
 	await OS.changeShell();
 	await OS.installOhMyFish();
 
-	await Prompt.configure();
+	await Prompt.configureFish();
 }
 
 async function setupMacOS() {
@@ -45,7 +69,7 @@ async function setupMacOS() {
 	await OS.changeShell();
 	await OS.installOhMyFish();
 
-	await Prompt.configure();
+	await Prompt.configureFish();
 }
 
 switch (os) {
