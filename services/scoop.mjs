@@ -20,7 +20,7 @@ async function installScoop() {
 		SCOOP_INSTALL_URL,
 		async (path) => {
 			await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
-			await $`${path} -RunAsAdmin`;
+			await $`powershell.exe -file "${path}" -RunAsAdmin`;
 		},
 	);
 
