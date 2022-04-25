@@ -1,5 +1,8 @@
+import { nanoid } from "nanoid";
 import { fetch, fs, os, path, which } from "zx";
 import * as Log from "./log.mjs";
+
+const OH_MY_FISH_INSTALL_URL = "https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install";
 
 /**
  * Checks whether current environment is a CI pipeline
@@ -62,14 +65,6 @@ export const isWindows = () => platform() === "win32";
 export const getPath = (program) => which.sync(program);
 
 /**
- * Validate whether a given program is installed and located in $PATH
- * @param {string} program
- * @returns boolean
- */
-export const isInstalled = (program) =>
-	which.sync(program, { nothrow: true }) !== null;
-
-/**
  * Sets the OS to use Fish shell
  * @returns {Promise<void>}
  */
@@ -97,17 +92,18 @@ export const changeShell = async () => {
 export const installOhMyFish = async () => {
 	Log.info("Installing Oh My Fish...");
 
-	const destination = temporary("install.fish");
-	const installURL = "https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install";
-	const installFlags = ["--noninteractive", "--yes"];
+	await useInstaller(
+		OH_MY_FISH_INSTALL_URL,
+		async (path) => {
+			const installFlags = ["--noninteractive", "--yes"];
 
-	if (isPipeline()) {
-		installFlags.push("--check");
-	}
+			if (isPipeline()) {
+				installFlags.push("--check");
+			}
 
-	await download(installURL, destination);
-	await $`fish ${destination} ${installFlags}`;
-	await remove(destination);
+			await $`fish ${path} ${installFlags}`;
+		},
+	);
 };
 
 /**
@@ -134,7 +130,9 @@ export const download = async (url, destination) => {
 	const response = await fetch(url);
 
 	if (!response.ok) {
-		throw new Error(`Could not download ${url}`);
+		throw new Error(
+			`Could not download from '${url}'. Server responded with status ${response.status} ${response.statusText}`,
+		);
 	}
 
 	const textContent = await response.text();
@@ -155,6 +153,25 @@ export const getFishShellConfiguration = async () => {
  */
 export const getPowerShellConfiguration = async () => {
 	return await getShellConfiguration(process.env.PROFILE);
+};
+
+/**
+ * Downloads an installation script to a temporary file, executes a callback, and removes the file.
+ * @param {string} url
+ * @param {(path: string) => Promise<void>} callback
+ * @returns {Promise<void>}
+ */
+export const useInstaller = async (url, callback) => {
+	const temporaryPath = temporary(nanoid());
+
+	try {
+		await download(url, temporaryPath);
+		await callback(temporaryPath);
+	} catch (error) {
+		Log.error(`Installation failed with message: ${error.message}`);
+	} finally {
+		await remove(temporaryPath);
+	}
 };
 
 const getShellConfiguration = async (configurationPath) => {

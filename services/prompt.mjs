@@ -47,16 +47,12 @@ export async function configurePowerShell() {
 }
 
 const installStarship = async () => {
-	if (OS.isInstalled("starship")) {
-		return Log.info("Starship is already installed");
-	}
-
-	const destination = OS.temporary("install.sh");
-	const installFlags = ["--yes"];
-
-	await OS.download(STARSHIP_INSTALLER_URL, destination);
-	await $`sh ${destination} ${installFlags}`;
-	await OS.remove(destination);
+	await OS.useInstaller(
+		STARSHIP_INSTALLER_URL,
+		async (path) => {
+			await $`sh ${path} --yes`;
+		},
+	);
 };
 
 async function activateStarship(command, configuration, configurationPath) {

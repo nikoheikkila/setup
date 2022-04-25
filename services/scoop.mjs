@@ -1,8 +1,9 @@
 import * as Log from "./log.mjs";
 import * as OS from "./os.mjs";
 
-const buckets = ["extras"];
+const SCOOP_INSTALL_URL = "https://get.scoop.sh";
 
+const buckets = ["extras"];
 const apps = ["buf", "coreutils", "git", "starship"];
 
 export async function install() {
@@ -13,21 +14,22 @@ export async function install() {
 }
 
 async function installScoop() {
-	if (OS.isInstalled("scoop")) {
-		return Log.info("Scoop is already installed");
-	}
-
-	const installerPath = OS.temporary("install.ps1");
-	const shimsPath = OS.home("scoop\\shims");
-
 	Log.info("Installing Scoop...");
-	await OS.download("https://get.scoop.sh", installerPath);
-	await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
-	await $`${installerPath} -RunAsAdmin`;
-	await OS.remove(installerPath);
 
-	Log.info(`Adding ${shimsPath} to $PATH`);
+	await OS.useInstaller(
+		SCOOP_INSTALL_URL,
+		async (path) => {
+			await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
+			await $`${path} -RunAsAdmin`;
+		},
+	);
+
+	const shimsPath = OS.home("scoop\\shims");
 	process.env.PATH = `${shimsPath};${process.env.PATH}`;
+
+	Log.warning(
+		`Temporarily added ${shimsPath} to $PATH. Please, restart Windows after the script has finished.`,
+	);
 }
 
 async function addBuckets() {
