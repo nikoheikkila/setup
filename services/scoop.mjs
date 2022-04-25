@@ -16,7 +16,7 @@ export async function install() {
 async function installScoop() {
 	Log.info("Installing Scoop...");
 
-	await OS.useInstaller(
+	await OS.usePowerShellInstaller(
 		SCOOP_INSTALL_URL,
 		async (path) => {
 			await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;

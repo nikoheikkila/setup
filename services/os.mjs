@@ -162,7 +162,7 @@ export const getPowerShellConfiguration = async () => {
  * @returns {Promise<void>}
  */
 export const useInstaller = async (url, callback) => {
-	const temporaryPath = temporary(nanoid());
+	const temporaryPath = getTemporaryFilePath();
 
 	try {
 		await download(url, temporaryPath);
@@ -172,6 +172,37 @@ export const useInstaller = async (url, callback) => {
 	} finally {
 		await remove(temporaryPath);
 	}
+};
+
+/**
+ * Downloads a PowerShell installation script to a temporary file, executes a callback, and removes the file.
+ * @param {string} url
+ * @param {(path: string) => Promise<void>} callback
+ * @returns {Promise<void>}
+ */
+export const usePowerShellInstaller = async (url, callback) => {
+	const extension = "ps1";
+	const temporaryPath = getTemporaryFilePath(extension);
+
+	try {
+		await download(url, temporaryPath);
+		await callback(temporaryPath);
+	} catch (error) {
+		Log.error(`Installation failed with message: ${error.message}`);
+	} finally {
+		await remove(temporaryPath);
+	}
+};
+
+/**
+ * Generates a random file path using nano-IDs (similar to UUIDs).
+ * If extension is provided, it will be appended to the file name.
+ * Note that on Windows, scripts MUST have a file extension (e.g. `.ps1`) before you can run them.
+ * @returns string
+ */
+const getTemporaryFilePath = (extension = "") => {
+	const result = temporary(nanoid());
+	return !!extension ? `${result}.${extension}` : result;
 };
 
 const getShellConfiguration = async (configurationPath) => {
