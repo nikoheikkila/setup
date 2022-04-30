@@ -3,8 +3,47 @@ import * as OS from "./os.mjs";
 
 const SCOOP_INSTALL_URL = "https://get.scoop.sh";
 
-const buckets = ["extras"];
-const apps = ["buf", "coreutils", "git", "starship"];
+const buckets = ["extras", "nerd-fonts"];
+const apps = [
+	"7zip",
+	"buf",
+	"coreutils",
+	"git",
+	"starship",
+	"z",
+	"azure-cli",
+	"bat",
+	"broot",
+	"cmake",
+	"curl",
+	"diff-so-fancy",
+	"direnv",
+	"fd",
+	"fnm",
+	"fx",
+	"fzf",
+	"gh",
+	"glow",
+	"gzip",
+	"jq",
+	"less",
+	"ln",
+	"mob",
+	"nodejs",
+	"pyenv",
+	"python",
+	"ripgrep",
+	"sed",
+	"speedtest-cli",
+	"sudo",
+	"tar",
+	"touch",
+	"unzip",
+	"vim",
+	"wget",
+	"which",
+	"xsv",
+];
 
 export async function install() {
 	await installScoop();
