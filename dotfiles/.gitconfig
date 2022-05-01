@@ -60,33 +60,14 @@
 [rebase]
     autosquash = true
 [alias]
-    amend = commit --amend --no-edit
-    br = branch -ra
-    c = commit -v
-    cl = clone
-    cm = commit -m
-    ca = commit -am
-    co = checkout
-    cob = checkout -b
-    cp = cherry-pick
-    diff = diff --word-diff
-    edit = config --global -e
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
-    loc = diff --shortstat "@{0 day ago}"
-    ff = merge --ff-only
-    pf = push --force-with-lease
-    pt = push --tags
-    rem = remote -v
-    rom = rebase -i origin/main
-    rum = rebase -i upstream/main
-    s = status -s
-    sb = show-branch
-    smi = submodule init --recursive --remote
-    smu = submodule update
-    sync = pull --rebase && push
-    t = !sh -c 'git tag -a "$1" -m "Version $1"'
-    stats = shortlog -s -n --all --no-merges
     bclean = !git branch --merged | grep -v 'main' | xargs git branch -D
+    done = !git reset --soft $(git history)
+    edit = config --global -e
+    history = !git log --oneline --pretty='%h %s' | fzf --preview='git show --color=always {+1} | diff-so-fancy' | cut -d ' ' -f 1
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
+    rb = !git rebase -i $(git history)
+    save = !git add -A && git commit -m "quicksave"
+    stats = shortlog -s -n --all --no-merges
 [commit]
     gpgsign = false
 [http]
