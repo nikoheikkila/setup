@@ -33,7 +33,7 @@ jobs:
     - name: Prepare Windows Environment
       if: runner.os == 'Windows'
       shell: powershell
-      run: copy nul ${{ env.PROFILE }}
+      run: echo $null >> ${{ env.PROFILE }}
 
     - name: Setup Node.js 16
       uses: actions/setup-node@v3
