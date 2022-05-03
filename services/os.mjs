@@ -73,7 +73,7 @@ export const changeShell = async () => {
 		return Log.info("Not changing the login shell as this is a CI pipeline.");
 	}
 
-	const shell = "/usr/local/bin/fish";
+	const shell = await which("fish");
 	const currentShell = process.env.SHELL ?? "/bin/sh";
 
 	if (currentShell === shell) {
