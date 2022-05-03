@@ -152,7 +152,8 @@ export const getFishShellConfiguration = async () => {
  * @returns {Promise<{configuration: string, configurationPath: string}>}
  */
 export const getPowerShellConfiguration = async () => {
-	return await getShellConfiguration(process.env.PROFILE);
+	const fallback = home("Documents/PowerShell/Microsoft.PowerShell_profile.ps1");
+	return await getShellConfiguration(process.env.PROFILE ?? fallback);
 };
 
 /**
