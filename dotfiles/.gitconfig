@@ -60,16 +60,14 @@
 [rebase]
     autosquash = true
 [alias]
-    bclean = "!git branch --merged | grep -v 'main' | xargs git branch -D"
-    done = "!git reset --soft $(git history)"
-    edit = "config --global -e"
+    configure = "config --global -e"
     history = "!git log --oneline --pretty='%h %s' | fzf --preview='git show --color=always {+1} | diff-so-fancy' | cut -d ' ' -f 1"
     lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges"
     rb = "!git rebase -i $(git history)"
     goal = "!git commit --allow-empty --no-verify -m \"$1\" #"
     save = "!git add -A && git commit --no-verify -m 'quicksave'"
     load = "!git checkout . && git clean -df"
-    stats = "shortlog -s -n --all --no-merges"
+    done = "!git reset --soft $(git history) && git add -A && git commit --amend --no-edit"
 [commit]
     gpgsign = false
 [http]
