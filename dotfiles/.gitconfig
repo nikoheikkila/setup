@@ -1,5 +1,5 @@
 [core]
-    editor = hx
+    editor = nvim
     ignorecase = false
     excludesfile = ~/.gitignore
     preloadindex = true
@@ -60,14 +60,16 @@
 [rebase]
     autosquash = true
 [alias]
-    bclean = !git branch --merged | grep -v 'main' | xargs git branch -D
-    done = !git reset --soft $(git history)
-    edit = config --global -e
-    history = !git log --oneline --pretty='%h %s' | fzf --preview='git show --color=always {+1} | diff-so-fancy' | cut -d ' ' -f 1
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
-    rb = !git rebase -i $(git history)
-    save = !git add -A && git commit -m "quicksave"
-    stats = shortlog -s -n --all --no-merges
+    bclean = "!git branch --merged | grep -v 'main' | xargs git branch -D"
+    done = "!git reset --soft $(git history)"
+    edit = "config --global -e"
+    history = "!git log --oneline --pretty='%h %s' | fzf --preview='git show --color=always {+1} | diff-so-fancy' | cut -d ' ' -f 1"
+    lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges"
+    rb = "!git rebase -i $(git history)"
+    goal = "!git commit --allow-empty --no-verify -m \"$1\" #"
+    save = "!git add -A && git commit --no-verify -m 'quicksave'"
+    load = "!git checkout . && git clean -df"
+    stats = "shortlog -s -n --all --no-merges"
 [commit]
     gpgsign = false
 [http]
