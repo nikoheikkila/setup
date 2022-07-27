@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+git reset --soft "$(git history)"
+git add -A
+git commit --amend
+
+echo "Feature committed. Run 'git push' to share with others."

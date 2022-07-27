@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+readonly message="${1:-goal}"
+
+echo "Setting up goal for: '$message'"
+git commit --allow-empty --no-verify -m "$message" > /dev/null 2>&1
+
+echo "Run 'git save' to save your changes, and 'git load' to revert. When you're finished, run 'git done'."

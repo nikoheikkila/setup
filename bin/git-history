@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+git log --oneline --pretty='%h %s' | fzf --preview='git show --color=always {+1} | diff-so-fancy' | cut -d ' ' -f 1
