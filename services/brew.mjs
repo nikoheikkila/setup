@@ -2,7 +2,8 @@ import { nothrow } from "zx";
 import * as Log from "./log.mjs";
 import * as OS from "./os.mjs";
 
-const HOMEBREW_INSTALL_URL = "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh";
+const HOMEBREW_INSTALL_URL =
+	"https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh";
 
 /**
  * Installs the Homebrew package manager system wide
@@ -11,12 +12,9 @@ const HOMEBREW_INSTALL_URL = "https://raw.githubusercontent.com/Homebrew/install
 export const install = async () => {
 	Log.info("Installing Homebrew...");
 
-	await OS.useInstaller(
-		HOMEBREW_INSTALL_URL,
-		async (path) => {
-			await $`bash ${path}`;
-		},
-	);
+	await OS.useInstaller(HOMEBREW_INSTALL_URL, async (path) => {
+		await $`bash ${path}`;
+	});
 };
 
 /**

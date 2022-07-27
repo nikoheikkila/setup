@@ -11,7 +11,8 @@ export const configureFish = async () => {
 	await installStarship();
 
 	Log.info("Configuring Starship...");
-	const { configuration, configurationPath } = await OS.getFishShellConfiguration();
+	const { configuration, configurationPath } =
+		await OS.getFishShellConfiguration();
 
 	if (!configurationPath) {
 		return Log.info(
@@ -32,7 +33,8 @@ export const configureFish = async () => {
 export async function configurePowerShell() {
 	Log.info("Configuring Starship...");
 
-	const { configuration, configurationPath } = await OS.getPowerShellConfiguration();
+	const { configuration, configurationPath } =
+		await OS.getPowerShellConfiguration();
 
 	if (!configurationPath) {
 		return Log.warning(
@@ -47,12 +49,9 @@ export async function configurePowerShell() {
 }
 
 const installStarship = async () => {
-	await OS.useInstaller(
-		STARSHIP_INSTALLER_URL,
-		async (path) => {
-			await $`sh ${path} --yes`;
-		},
-	);
+	await OS.useInstaller(STARSHIP_INSTALLER_URL, async (path) => {
+		await $`sh ${path} --yes`;
+	});
 };
 
 async function activateStarship(command, configuration, configurationPath) {

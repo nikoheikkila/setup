@@ -2,7 +2,8 @@ import { nanoid } from "nanoid";
 import { fetch, fs, os, path, which } from "zx";
 import * as Log from "./log.mjs";
 
-const OH_MY_FISH_INSTALL_URL = "https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install";
+const OH_MY_FISH_INSTALL_URL =
+	"https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install";
 
 /**
  * Checks whether current environment is a CI pipeline
@@ -92,18 +93,15 @@ export const changeShell = async () => {
 export const installOhMyFish = async () => {
 	Log.info("Installing Oh My Fish...");
 
-	await useInstaller(
-		OH_MY_FISH_INSTALL_URL,
-		async (path) => {
-			const installFlags = ["--noninteractive", "--yes"];
+	await useInstaller(OH_MY_FISH_INSTALL_URL, async (path) => {
+		const installFlags = ["--noninteractive", "--yes"];
 
-			if (isPipeline()) {
-				installFlags.push("--check");
-			}
+		if (isPipeline()) {
+			installFlags.push("--check");
+		}
 
-			await $`fish ${path} ${installFlags}`;
-		},
-	);
+		await $`fish ${path} ${installFlags}`;
+	});
 };
 
 /**
@@ -152,7 +150,9 @@ export const getFishShellConfiguration = async () => {
  * @returns {Promise<{configuration: string, configurationPath: string}>}
  */
 export const getPowerShellConfiguration = async () => {
-	const fallback = home("Documents/PowerShell/Microsoft.PowerShell_profile.ps1");
+	const fallback = home(
+		"Documents/PowerShell/Microsoft.PowerShell_profile.ps1",
+	);
 	return await getShellConfiguration(process.env.PROFILE ?? fallback);
 };
 

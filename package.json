@@ -4,7 +4,8 @@
     "license": "public domain",
     "scripts": {
         "postinstall": "zx setup.mjs",
-        "format": "rome format ."
+        "lint": "rome check --apply .",
+        "format": "rome format --write ."
     },
     "dependencies": {
         "nanoid": "^4.0.0",

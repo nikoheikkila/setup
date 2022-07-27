@@ -55,13 +55,10 @@ export async function install() {
 async function installScoop() {
 	Log.info("Installing Scoop...");
 
-	await OS.usePowerShellInstaller(
-		SCOOP_INSTALL_URL,
-		async (path) => {
-			await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
-			await $`powershell.exe -file "${path}" -RunAsAdmin`;
-		},
-	);
+	await OS.usePowerShellInstaller(SCOOP_INSTALL_URL, async (path) => {
+		await $`Set-ExecutionPolicy RemoteSigned -scope CurrentUser`;
+		await $`powershell.exe -file "${path}" -RunAsAdmin`;
+	});
 
 	const shimsPath = OS.home("scoop\\shims");
 	process.env.PATH = `${shimsPath};${process.env.PATH}`;

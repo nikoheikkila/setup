@@ -68,15 +68,13 @@ function quote(value) {
 		return value;
 	}
 
-	return value
-		.replace(/\\/g, "\\\\")
-		.replace(/'/g, "\\\'")
-		.replace(/\f/g, "\\f")
-		.replace(/\n/g, "\\n")
-		.replace(/\r/g, "\\r")
-		.replace(/\t/g, "\\t")
-		.replace(/\v/g, "\\v")
-		.replace(/\0/g, "\\0");
+	return value.replace(/\\/g, "\\\\").replace(/'/g, "\\\'").replace(
+		/\f/g,
+		"\\f",
+	).replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t").replace(
+		/\v/g,
+		"\\v",
+	).replace(/\0/g, "\\0");
 }
 
 switch (os) {
