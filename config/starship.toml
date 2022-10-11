@@ -1,50 +1,44 @@
-# Configuration file for the Starship prompt
-# See: https://starship.rs/config/
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# Don't print a new line at the start of the prompt
 add_newline = false
 command_timeout = 1000
 
-# Configure battery symbols
 [battery]
-full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
+full_symbol = "🔋 "
+charging_symbol = "⚡ "
+discharging_symbol = "🪫 "
+empty_symbol = "🪫 "
 
-format = """
-$username\
-$hostname\
-$directory\
-$git_branch\
-$git_state\
-$git_status\
-$cmd_duration\
-$line_break\
-$python\
-$character"""
+[[battery.display]]
+threshold = 20
 
 [directory]
-style = "blue"
+format = "[$read_only]($read_only_style)[$path]($style)"
+home_symbol = "🏠"
 
 [character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vicmd_symbol = "[❮](green)"
+success_symbol = "[❯](bold green)"
+error_symbol = "[X](bold red)"
+vicmd_symbol = "[V](green)"
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
+format = "on [$symbol$branch]($style)"
+symbol = "🌱 "
+ignore_branches = ["main", "master"]
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
 style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
+conflicted = "​⚔️"
+untracked = "​❔"
+modified = "​📝"
+staged = "​➕"
+renamed = "​🏷️"
+deleted = "​🗑️"
+stashed = "📦"
+ahead = "⬆ ${count} "
+diverged = "⬆ ${ahead_count} ⬇ ${behind_count} "
+behind = "⬇ ${count} "
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
@@ -57,3 +51,6 @@ style = "yellow"
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
+
+[package]
+format = "[$symbol$version]($style)"
