@@ -1,10 +1,6 @@
 name: Test Pipeline
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: workflow_dispatch
 
 env:
   HOMEBREW_NO_INSTALL_UPGRADE: 1
@@ -36,10 +32,10 @@ jobs:
         mkdir "$env:USERPROFILE\Documents\PowerShell"
         echo $null >> "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 
-    - name: Setup Node.js 16
+    - name: Setup Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 18
         cache: yarn
 
     - name: Run setup

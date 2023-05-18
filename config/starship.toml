@@ -1,16 +1,19 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = false
-command_timeout = 1000
+command_timeout = 5000
+format = "$all"
+right_format = "$time$battery"
+continuation_prompt = '▶▶ '
 
 [battery]
 full_symbol = "🔋 "
 charging_symbol = "⚡ "
-discharging_symbol = "🪫 "
+discharging_symbol = "💧"
 empty_symbol = "🪫 "
 
 [[battery.display]]
-threshold = 20
+threshold = 100
 
 [directory]
 format = "[$read_only]($read_only_style)[$path]($style)"
@@ -22,7 +25,7 @@ error_symbol = "[X](bold red)"
 vicmd_symbol = "[V](green)"
 
 [git_branch]
-format = "on [$symbol$branch]($style)"
+format = " on [$symbol$branch]($style)"
 symbol = "🌱 "
 ignore_branches = ["main", "master"]
 
@@ -45,7 +48,7 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [cmd_duration]
-format = "[$duration]($style) "
+format = " [$duration]($style)"
 style = "yellow"
 
 [python]
@@ -53,4 +56,9 @@ format = "[$virtualenv]($style) "
 style = "bright-black"
 
 [package]
-format = "[$symbol$version]($style)"
+format = "[$symbol$version]($style) "
+
+[time]
+disabled = false
+format = " [$time]($style) "
+time_format = "%H:%M"
