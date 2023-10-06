@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BRANCH=${1:-main}
+
+git fetch --all --prune
+git rebase "origin/$BRANCH"
+
