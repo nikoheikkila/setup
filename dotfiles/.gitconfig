@@ -1,69 +1,69 @@
 [core]
-    editor = nvim
-    ignorecase = false
-    excludesfile = ~/.gitignore
-    preloadindex = true
-    fscache = true
+  editor = nvim
+  ignorecase = false
+  excludesfile = ~/.gitignore
+  preloadindex = true
+  fscache = true
 	autocrlf = input
 	filemode = false
 [gc]
-    auto = 256
+  auto = 256
 [filter "lfs"]
-    required   = true
-    clean = git-lfs clean -- %f
+  required   = true
+  clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [user]
-    name   = Niko Heikkilä
+  name   = Niko Heikkilä
 	email = niko.heikkila@futurice.com
-    useconfigonly = true
+  useconfigonly = true
 [color]
-    branch  = auto
-    diff    = auto
-    status  = auto
-    ui      = always
+  branch  = auto
+  diff    = auto
+  status  = auto
+  ui      = always
 [color "branch"]
-    current = red reverse
-    local   = blue
-    remote  = green
+  current = red reverse
+  local   = blue
+  remote  = green
 [color "diff"]
-    meta    = yellow
-    frag    = magenta
-    old     = red bold
-    new     = green
-    plain   = white
+  meta    = yellow
+  frag    = magenta
+  old     = red bold
+  new     = green
+  plain   = white
 [color "status"]
-    added       = yellow
-    changed     = green
-    untracked   = cyan
+  added       = yellow
+  changed     = green
+  untracked   = cyan
 [pager]
-    diff = diff-so-fancy | bat
+  diff = diff-so-fancy | bat
 	show = diff-so-fancy | bat
 [push]
-    default = current
-    followTags = true
+  default = current
+  followTags = true
 [pull]
-    rebase = true
-    default = current
+  rebase = true
+  default = current
 [diff]
-    tool = default-difftool
-    mnemonicprefix = true
+  tool = default-difftool
+  mnemonicprefix = true
 [difftool "default-difftool"]
-    cmd = code --diff $LOCAL $REMOTE
-    prompt = false
+  cmd = code --diff $LOCAL $REMOTE
+  prompt = false
 [branch]
-    autosetuprebase = always
+  autosetuprebase = always
 [apply]
-    whitespace = nowarn
+  whitespace = nowarn
 [rerere]
-    enabled = false
+  enabled = false
 [rebase]
-    autosquash = true
+  autosquash = true
 [alias]
-    configure = "config --global -e"
-    lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges"
+  configure = "config --global -e"
+  lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges"
 [commit]
-    gpgsign = false
+  gpgsign = false
 [http]
 	sslVerify = true
 [init]
@@ -71,4 +71,13 @@
 [include]
   path = ~/.gitconfig.local
 [gpg "ssh"]
-	allowedSignersFile = ~/.ssh/allowed_signers
+	allowedSignersFile = /Users/niko.heikkila/.ssh/allowed_signers
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[includeIf "gitdir/i:~/src/github.com/accountor/"]
+  path = ~/.gitconfig-accountor
+

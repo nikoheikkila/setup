@@ -29,6 +29,9 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 
+# Fleet
+.fleet/
+
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
@@ -48,8 +51,9 @@ cmake-build-*/
 # File-based project format
 *.iws
 
-# IntelliJ
+# Compilations
 out/
+dist/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -191,5 +195,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Taskfile
+.task/
 
 # End of https://www.gitignore.io/api/vim,linux,macos,windows,jetbrains+all,visualstudiocode

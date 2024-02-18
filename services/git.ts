@@ -1,11 +1,10 @@
-import * as Log from "./log.mjs";
-import * as OS from "./os.mjs";
+import * as Log from "./log.ts";
+import * as OS from "./os.ts";
 
 const dotFiles = [".gitconfig", ".gitignore"];
 
 /**
  * Configures Git with desired dotfiles
- * @returns {Promise<void>}
  */
 export const configure = async () => {
 	Log.info("Configuring Git...");

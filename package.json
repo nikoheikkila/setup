@@ -1,17 +1,18 @@
 {
-    "name": "setup",
-    "private": true,
-    "license": "public domain",
-    "scripts": {
-        "postinstall": "zx setup.mjs",
-        "lint": "rome check --apply .",
-        "format": "rome format --write ."
-    },
-    "dependencies": {
-        "nanoid": "^4.0.0",
-        "zx": "^7.0.7"
-    },
-    "devDependencies": {
-        "rome": "^0.7.0-next.f6510d6"
-    }
+  "name": "setup",
+  "private": true,
+  "license": "public domain",
+  "dependencies": {
+    "bun": "^1.0.27",
+    "chalk": "^5.3.0",
+    "nanoid": "^4.0.0"
+  },
+  "module": "setup.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
