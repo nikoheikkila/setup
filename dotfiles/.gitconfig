@@ -39,6 +39,9 @@
 [pager]
   diff = diff-so-fancy | bat
 	show = diff-so-fancy | bat
+[fetch]
+  prune = true
+  prunetags = true
 [push]
   default = current
   followTags = true
@@ -48,6 +51,7 @@
 [diff]
   tool = default-difftool
   mnemonicprefix = true
+  algorithm = histogram
 [difftool "default-difftool"]
   cmd = code --diff $LOCAL $REMOTE
   prompt = false
@@ -56,18 +60,24 @@
 [apply]
   whitespace = nowarn
 [rerere]
-  enabled = false
+  enabled = true
 [rebase]
   autosquash = true
+  autostash = true
+  missingCommitsCheck = error
+  updateRefs = true
 [alias]
   configure = "config --global -e"
   lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges"
 [commit]
   gpgsign = false
+  verbose = true
 [http]
 	sslVerify = true
 [init]
 	defaultBranch = main
+[merge]
+  conflictStyle = zdiff3
 [include]
   path = ~/.gitconfig.local
 [gpg "ssh"]
