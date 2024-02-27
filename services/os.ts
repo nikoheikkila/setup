@@ -29,7 +29,8 @@ export const temporary = (components = "") => {
     return path.resolve(os.tmpdir(), ...splitComponents(components));
 };
 
-export const isInstalled = (program: string) => $`which ${program}`.text().then((output) => output.trim().length > 0);
+export const isInstalled = (program: string) =>
+    $`command -v ${program}`.text().then((output) => output.trim().length > 0);
 
 const splitComponents = (components = "") => components.split(path.sep);
 
