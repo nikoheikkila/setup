@@ -1281,45 +1281,45 @@
         }
       },
       "hugo": {
-        "version": "0.123.4",
+        "version": "0.123.5",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
             "arm64_sonoma": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:a3fce8ad9db4c2314583454aeabd4653eb6403b6db788a294724b9b63508606f",
-              "sha256": "a3fce8ad9db4c2314583454aeabd4653eb6403b6db788a294724b9b63508606f"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:3b75c23a98fab2ad1d26b1217ae327a0d694dd8e3fdfc3129a604a3f9fd555ea",
+              "sha256": "3b75c23a98fab2ad1d26b1217ae327a0d694dd8e3fdfc3129a604a3f9fd555ea"
             },
             "arm64_ventura": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:991220c554d14d7c1db2025a9f84f9aaf0d2ab81ed811cc09a8e685412310d65",
-              "sha256": "991220c554d14d7c1db2025a9f84f9aaf0d2ab81ed811cc09a8e685412310d65"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:fb1fbebcb069c4edda808350944629dca3060d9140f3bfbc84201d1b7210a4a6",
+              "sha256": "fb1fbebcb069c4edda808350944629dca3060d9140f3bfbc84201d1b7210a4a6"
             },
             "arm64_monterey": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:485c51e356945ec7d812da091c28ba8f6a3b5b7f6d1f77285268d95bf37212d2",
-              "sha256": "485c51e356945ec7d812da091c28ba8f6a3b5b7f6d1f77285268d95bf37212d2"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:58127a88d7c644153ef9903052987c9107bc09ccfde433e9fc9cc8cfe45c04e1",
+              "sha256": "58127a88d7c644153ef9903052987c9107bc09ccfde433e9fc9cc8cfe45c04e1"
             },
             "sonoma": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:2405c71b93db7beee18e89fd92cac7232873f89ee4b2073b13d5a7946baf71d0",
-              "sha256": "2405c71b93db7beee18e89fd92cac7232873f89ee4b2073b13d5a7946baf71d0"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:f45ffd51625a7217c9a472bd5e237995c1d5c253c7aacea28e7427354a544755",
+              "sha256": "f45ffd51625a7217c9a472bd5e237995c1d5c253c7aacea28e7427354a544755"
             },
             "ventura": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:eac2d51f8ed59bdc49c93b18b8ab3d1f4dc01285ff19efbd24064f1f1d2829b4",
-              "sha256": "eac2d51f8ed59bdc49c93b18b8ab3d1f4dc01285ff19efbd24064f1f1d2829b4"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:86669f3aacbe989c0166789cefef4585bec278f1a4f25c9be86858866b711961",
+              "sha256": "86669f3aacbe989c0166789cefef4585bec278f1a4f25c9be86858866b711961"
             },
             "monterey": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:2797bb617fe3ce9e97f2251ea85438200fc2c697b062e084d2db3cd2445e4d6a",
-              "sha256": "2797bb617fe3ce9e97f2251ea85438200fc2c697b062e084d2db3cd2445e4d6a"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:e7345d4a04a6c085017cc847c0ca2c9a016dcaea519a18e808d3bc639062c1bd",
+              "sha256": "e7345d4a04a6c085017cc847c0ca2c9a016dcaea519a18e808d3bc639062c1bd"
             },
             "x86_64_linux": {
               "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:eb2bd442d512a793b2d886017587a24e3754ac14072449301939219d658ba0ad",
-              "sha256": "eb2bd442d512a793b2d886017587a24e3754ac14072449301939219d658ba0ad"
+              "url": "https://ghcr.io/v2/homebrew/core/hugo/blobs/sha256:4fa673bbe17d413e69319e783c6cf82ba104edeec9a41623db9492a74847f522",
+              "sha256": "4fa673bbe17d413e69319e783c6cf82ba104edeec9a41623db9492a74847f522"
             }
           }
         }
@@ -3709,6 +3709,18 @@
         "version": "8.17.3",
         "options": {
           "full_name": "todoist"
+        }
+      },
+      "slack": {
+        "version": "4.36.140",
+        "options": {
+          "full_name": "slack"
+        }
+      },
+      "telegram-desktop": {
+        "version": "4.15.0",
+        "options": {
+          "full_name": "telegram-desktop"
         }
       }
     }
