@@ -83,11 +83,7 @@
 [gpg "ssh"]
 	allowedSignersFile = /Users/niko.heikkila/.ssh/allowed_signers
 [credential "https://github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
-[includeIf "gitdir/i:~/src/github.com/accountor/"]
-  path = ~/.gitconfig-accountor
 
