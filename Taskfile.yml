@@ -1,11 +1,10 @@
-version: '3'
+version: "3"
 
 vars:
   BUN_VERSION: "1.0.27"
   OUTFILE: "./dist/setup"
 
 tasks:
-
   install:
     desc: Install dependencies for the project
     cmds:
@@ -28,6 +27,18 @@ tasks:
     cmds:
       - "{{.OUTFILE}}"
 
+  update:
+    desc: Updates system packages from Brewfile
+    generates:
+      - Brewfile.lock.json
+    cmds:
+      - brew bundle install
+
+  dump:
+    desc: Writes system packages to Brewfile
+    cmds:
+      - brew bundle dump --force
+
   install:bun:
     internal: true
     silent: true
@@ -46,4 +57,3 @@ tasks:
     sources:
       - package.json
       - bun.lockb
-
